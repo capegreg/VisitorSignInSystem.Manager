@@ -1,0 +1,6 @@
+MainPackage=C:\source\repos\VisitorSignInSystem.Manager\VisitorSignInSystem.Manager\bin\x64\Release\VisitorSignInSystem.Manager_1.1.53.0_x64.msix
+SymbolPackage=C:\source\repos\VisitorSignInSystem.Manager\VisitorSignInSystem.Manager\obj\x64\Release\Symbols\VisitorSignInSystem.Manager_1.1.53.0_x64.appxsym
+ResourcePack=C:\source\repos\VisitorSignInSystem.Manager\VisitorSignInSystem.Manager\bin\x64\Release\VisitorSignInSystem.Manager_1.1.53.0_scale-100.msix
+ResourcePack=C:\source\repos\VisitorSignInSystem.Manager\VisitorSignInSystem.Manager\bin\x64\Release\VisitorSignInSystem.Manager_1.1.53.0_scale-125.msix
+ResourcePack=C:\source\repos\VisitorSignInSystem.Manager\VisitorSignInSystem.Manager\bin\x64\Release\VisitorSignInSystem.Manager_1.1.53.0_scale-150.msix
+ResourcePack=C:\source\repos\VisitorSignInSystem.Manager\VisitorSignInSystem.Manager\bin\x64\Release\VisitorSignInSystem.Manager_1.1.53.0_scale-400.msix

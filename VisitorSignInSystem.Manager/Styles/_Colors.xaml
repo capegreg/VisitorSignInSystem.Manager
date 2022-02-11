@@ -1,0 +1,41 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="ThemeControlForegroundBaseHighBrush" Color="{ThemeResource SystemBaseHighColor}" />
+
+    <SolidColorBrush x:Key="PaoSolidColorBrushWhite" Color="#FFF" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushBlack" Color="#000" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushChar" Color="#FF343131" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushRed" Color="#FFE2330A" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushSpanishRed" Color="#FFe60026" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushRedEnamel" Color="#FF970C10" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushFlamingo" Color="#FFEC7063" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushBrick" Color="#FFAF3E18" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushCoral" Color="#FFE57F84" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushBrown" Color="#FF976F19" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushDarkGreen" Color="#FF467057" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushLightGreen" Color="#FF4CAC73" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushGreen" Color="#FF008000" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushGreenGrass" Color="#FF59981A" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushGrey" Color="#b4bcc2" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushDarkGrey" Color="#FFA9A9A9" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushDisabled" Color="#FF9DAFB6" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushIvory" Color="#FFEAEAE0" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushOnBlue" Color="#FF10305e" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushNorthernBlue" Color="#FF1C4670" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushBlue" Color="#FF10548D" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushGreyBlue" Color="#FF7E9DC2" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushOffBlue" Color="#FF8d98a7" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushTealGreen" Color="#FF175873" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushEasyBlue" Color="#FF1D6ED3" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushOldBlue" Color="#FF3884A0" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushSteelBlue" Color="#FF4682B4" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushBlueGreen" Color="#FF3CACAE" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushLightSeaGreen" Color="#FF20B2AA" />
+    <SolidColorBrush x:Key="SolidColorBrushNavBackgroundEnabled" Color="#FF77E8EE" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushDarkGoldenrod" Color="#FFB8860B" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushGold" Color="#FFFFD700" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushLemon" Color="#FFFFED86" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushLightYellow" Color="#FFFCF3CF" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushDarkLightYellow" Color="#FFFCF3CF" />
+    <SolidColorBrush x:Key="PaoSolidColorBrushButtonBackgroundEnabled" Color="#FFEAEAE0" />
+
+</ResourceDictionary>

@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/VisitorSignInSystem.Manager/obj
+/VisitorSignInSystem.Manager.Core/bin
+/VisitorSignInSystem.Manager.Core/obj
+/VisitorSignInSystem.Manager/bin/x64
+/.vs/VisitorSignInSystem.Manager

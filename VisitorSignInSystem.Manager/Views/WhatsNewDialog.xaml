@@ -1,0 +1,91 @@
+﻿<ContentDialog
+    x:Class="VisitorSignInSystem.Manager.Views.WhatsNewDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Uid="WhatsNewDialog"
+    d:DesignHeight="345"
+    d:DesignWidth="550"
+    mc:Ignorable="d">
+    <ContentDialog.TitleTemplate>
+        <DataTemplate x:DataType="x:String">
+            <StackPanel Orientation="Horizontal">
+                <Image
+                    Width="Auto"
+                    Height="Auto"
+                    Source="ms-appx:///Assets/StoreLogo.png"
+                    Stretch="UniformToFill" />
+                <TextBlock
+                    Margin="{StaticResource SmallLeftMargin}"
+                    VerticalAlignment="Center"
+                    FontFamily="{ThemeResource ContentControlThemeFontFamily}"
+                    FontSize="30"
+                    Text="{x:Bind}" />
+            </StackPanel>
+        </DataTemplate>
+    </ContentDialog.TitleTemplate>
+    <ScrollViewer>
+        <StackPanel Orientation="Vertical">
+            <StackPanel>
+                <StackPanel Margin="10,8,0,0" Orientation="Horizontal">
+                    <FontIcon
+                        Margin="0,0,8,0"
+                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                        FontSize="18"
+                        Foreground="SteelBlue"
+                        Glyph="&#xE8CB;" />
+                    <TextBlock FontSize="16" Foreground="SteelBlue">
+                        <Span>
+                            Maintain Users grid is now sortable
+                        </Span>
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Margin="10,2,0,0" Orientation="Horizontal">
+                    <FontIcon
+                        Margin="0,0,8,0"
+                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                        FontSize="18"
+                        Foreground="SteelBlue"
+                        Glyph="&#xE81B;" />
+                    <TextBlock FontSize="16" Foreground="SteelBlue">
+                        <Span>
+                            Fixed Maintain Transfer Types not loading data
+                        </Span>
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Margin="10,2,0,0" Orientation="Horizontal">
+                    <FontIcon
+                        Margin="0,0,8,0"
+                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                        FontSize="18"
+                        Foreground="SteelBlue"
+                        Glyph="&#xE81B;" />
+                    <TextBlock FontSize="16" Foreground="SteelBlue">
+                        <Span>
+                            Fixed Maintain User role type count information
+                        </Span>
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Margin="10,22,0,10">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon
+                        Margin="0,0,8,0"
+                        VerticalAlignment="Top"
+                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                        FontSize="18"
+                        Foreground="DarkSlateGray"
+                        Glyph="&#xE76E;" />
+                    <TextBlock
+                        Width="400"
+                        Foreground="DarkSlateGray"
+                        TextWrapping="WrapWholeWords">
+                        <Span>
+                            <Italic>Please send your feedback or report issues to the IT Department.</Italic></Span>
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</ContentDialog>
