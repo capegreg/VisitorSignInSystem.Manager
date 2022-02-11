@@ -1,0 +1,471 @@
+﻿<Page
+    x:Class="VisitorSignInSystem.Manager.Views.VisitorMetricsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:VisitorSignInSystem.Manager.Helpers"
+    xmlns:local="using:VisitorSignInSystem.Manager.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="using:VisitorSignInSystem.Manager.Core.Models"
+    xmlns:services="using:VisitorSignInSystem.Manager.Services"
+    xmlns:views="using:VisitorSignInSystem.Manager.Views"
+    x:Name="VisitorUI"
+    Style="{StaticResource PageStyle}"
+    mc:Ignorable="d">
+
+    <ScrollViewer
+        HorizontalScrollBarVisibility="Visible"
+        HorizontalScrollMode="Enabled"
+        MaxZoomFactor="10"
+        ZoomMode="Enabled">
+
+        <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+
+            <Grid.Resources>
+                <helpers:StringFormatSecondsConverter x:Key="StringFormatSecondsConverter" />
+                <converters:StringFormatConverter x:Key="StringFormatConverter" />
+            </Grid.Resources>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="65" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="6">
+                <TextBlock
+                    x:Name="HeaderTitleTextBlock"
+                    Margin="12,0,0,2"
+                    VerticalAlignment="Center"
+                    Style="{ThemeResource SubtitleTextBlockStyle}" />
+                <Border
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="12,0,10,0"
+                    BorderBrush="Black"
+                    BorderThickness="0,1,0,0" />
+                <StackPanel Margin="0,0,0,4" Orientation="Horizontal">
+                    <TextBlock
+                        x:Name="HeaderSubTitleTextBlock"
+                        Margin="12,2,0,0"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource TextBlockStyleSubTitle}" />
+                </StackPanel>
+            </StackPanel>
+
+            <!--
+                Agent counts
+                x:bind not working with converter
+            -->
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="0"
+                MinWidth="375"
+                Margin="6"
+                VerticalAlignment="Top">
+                <StackPanel Margin="12,0,0,6">
+                    <TextBlock
+                        Margin="0"
+                        VerticalAlignment="Center"
+                        Style="{ThemeResource SubtitleTextBlockStyle}"
+                        Text="Agent Counts" />
+                </StackPanel>
+                <controls:DataGrid
+                    x:Name="AgentMetricDataGrid"
+                    Height="365"
+                    MaxHeight="365"
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    AreRowDetailsFrozen="False"
+                    AreRowGroupHeadersFrozen="True"
+                    AutoGenerateColumns="False"
+                    BorderBrush="Black"
+                    BorderThickness="1"
+                    CanUserReorderColumns="True"
+                    CanUserResizeColumns="True"
+                    CanUserSortColumns="True"
+                    ColumnHeaderHeight="32"
+                    FrozenColumnCount="0"
+                    GridLinesVisibility="All"
+                    HeadersVisibility="Column"
+                    HorizontalScrollBarVisibility="Visible"
+                    IsReadOnly="True"
+                    ItemsSource="{x:Bind AgentMetricItems}"
+                    MaxColumnWidth="200"
+                    SelectionMode="Single"
+                    Sorting="AgentMetricDataGrid_Sorting"
+                    VerticalScrollBarVisibility="Visible">
+                    <controls:DataGrid.Columns>
+                        <controls:DataGridTemplateColumn Header="Name" Tag="FullName">
+                            <controls:DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="controls:DataGridCell">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                </Style>
+                            </controls:DataGridTemplateColumn.CellStyle>
+                            <controls:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="model:AgentMetric">
+                                    <TextBlock
+                                        Padding="5"
+                                        Text="{x:Bind FullName}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </DataTemplate>
+                            </controls:DataGridTemplateColumn.CellTemplate>
+                        </controls:DataGridTemplateColumn>
+
+                        <controls:DataGridTemplateColumn Header="Today" Tag="VisitorsToday">
+                            <controls:DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="controls:DataGridCell">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                </Style>
+                            </controls:DataGridTemplateColumn.CellStyle>
+                            <controls:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="model:AgentMetric">
+                                    <TextBlock
+                                        Padding="5"
+                                        Text="{x:Bind VisitorsToday}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </DataTemplate>
+                            </controls:DataGridTemplateColumn.CellTemplate>
+                        </controls:DataGridTemplateColumn>
+
+                        <controls:DataGridTemplateColumn Header="Wtd" Tag="VisitorsWtd">
+                            <controls:DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="controls:DataGridCell">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                </Style>
+                            </controls:DataGridTemplateColumn.CellStyle>
+                            <controls:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="model:AgentMetric">
+                                    <TextBlock
+                                        Padding="5"
+                                        Text="{x:Bind VisitorsWtd}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </DataTemplate>
+                            </controls:DataGridTemplateColumn.CellTemplate>
+                        </controls:DataGridTemplateColumn>
+
+                        <controls:DataGridTemplateColumn Header="Mtd" Tag="VisitorsMtd">
+                            <controls:DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="controls:DataGridCell">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                </Style>
+                            </controls:DataGridTemplateColumn.CellStyle>
+                            <controls:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="model:AgentMetric">
+                                    <TextBlock
+                                        Padding="5"
+                                        Text="{x:Bind VisitorsMtd}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </DataTemplate>
+                            </controls:DataGridTemplateColumn.CellTemplate>
+                        </controls:DataGridTemplateColumn>
+
+                        <controls:DataGridTemplateColumn Header="Ytd" Tag="VisitorsYtd">
+                            <controls:DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="controls:DataGridCell">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                </Style>
+                            </controls:DataGridTemplateColumn.CellStyle>
+                            <controls:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="model:AgentMetric">
+                                    <TextBlock
+                                        Padding="5"
+                                        Text="{x:Bind VisitorsYtd}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </DataTemplate>
+                            </controls:DataGridTemplateColumn.CellTemplate>
+                        </controls:DataGridTemplateColumn>
+
+                        <controls:DataGridTemplateColumn Header="Today" Tag="CallTimeToday">
+                            <controls:DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="controls:DataGridCell">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                </Style>
+                            </controls:DataGridTemplateColumn.CellStyle>
+                            <controls:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="model:AgentMetric">
+                                    <TextBlock
+                                        Padding="5"
+                                        Text="{Binding CallTimeToday, Converter={StaticResource StringFormatSecondsConverter}, ConverterParameter='{}', Mode=OneWay}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </DataTemplate>
+                            </controls:DataGridTemplateColumn.CellTemplate>
+                        </controls:DataGridTemplateColumn>
+
+                        <controls:DataGridTemplateColumn Header="Wtd" Tag="CallTimeWtd">
+                            <controls:DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="controls:DataGridCell">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                </Style>
+                            </controls:DataGridTemplateColumn.CellStyle>
+                            <controls:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="model:AgentMetric">
+                                    <TextBlock
+                                        Padding="5"
+                                        Text="{Binding CallTimeWtd, Converter={StaticResource StringFormatSecondsConverter}, ConverterParameter='{}', Mode=OneWay}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </DataTemplate>
+                            </controls:DataGridTemplateColumn.CellTemplate>
+                        </controls:DataGridTemplateColumn>
+
+                        <controls:DataGridTemplateColumn Header="Mtd" Tag="CallTimeMtd">
+                            <controls:DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="controls:DataGridCell">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                </Style>
+                            </controls:DataGridTemplateColumn.CellStyle>
+                            <controls:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="model:AgentMetric">
+                                    <TextBlock
+                                        Padding="5"
+                                        Text="{Binding CallTimeMtd, Converter={StaticResource StringFormatSecondsConverter}, ConverterParameter='{}', Mode=OneWay}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </DataTemplate>
+                            </controls:DataGridTemplateColumn.CellTemplate>
+                        </controls:DataGridTemplateColumn>
+
+                        <controls:DataGridTemplateColumn Header="Ytd" Tag="CallTimeYtd">
+                            <controls:DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="controls:DataGridCell">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                </Style>
+                            </controls:DataGridTemplateColumn.CellStyle>
+                            <controls:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="model:AgentMetric">
+                                    <TextBlock
+                                        Padding="5"
+                                        Text="{Binding CallTimeYtd, Converter={StaticResource StringFormatSecondsConverter}, ConverterParameter='{}', Mode=OneWay}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </DataTemplate>
+                            </controls:DataGridTemplateColumn.CellTemplate>
+                        </controls:DataGridTemplateColumn>
+
+
+                    </controls:DataGrid.Columns>
+                </controls:DataGrid>
+                <StackPanel
+                    Margin="15,5,0,0"
+                    Padding="2"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                        FontSize="20"
+                        Text="&#xE9D9;" />
+                    <TextBlock Margin="{StaticResource SmallLeftRightMargin}" Text="Agent frequency counts &amp; time spend with visitor" />
+                </StackPanel>
+            </StackPanel>
+
+            <!--  category metrics  -->
+            <StackPanel
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="6"
+                HorizontalAlignment="Left">
+                <StackPanel Margin="12,10,0,6">
+                    <TextBlock
+                        Margin="0"
+                        VerticalAlignment="Center"
+                        Style="{ThemeResource SubtitleTextBlockStyle}"
+                        Text="Category Counts" />
+                </StackPanel>
+                <controls:DataGrid
+                    x:Name="CategoryMetricDataGrid"
+                    Height="260"
+                    MaxHeight="260"
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Left"
+                    AreRowDetailsFrozen="False"
+                    AreRowGroupHeadersFrozen="True"
+                    AutoGenerateColumns="False"
+                    BorderBrush="Black"
+                    BorderThickness="1"
+                    CanUserReorderColumns="True"
+                    CanUserResizeColumns="True"
+                    CanUserSortColumns="True"
+                    ColumnHeaderHeight="32"
+                    FrozenColumnCount="0"
+                    GridLinesVisibility="All"
+                    HeadersVisibility="Column"
+                    HorizontalScrollBarVisibility="Visible"
+                    IsReadOnly="True"
+                    ItemsSource="{x:Bind CategoryMetricItems}"
+                    MaxColumnWidth="200"
+                    SelectionMode="Single"
+                    VerticalScrollBarVisibility="Visible">
+                    <controls:DataGrid.Columns>
+
+                        <controls:DataGridTemplateColumn Header="Description" Tag="Description">
+                            <controls:DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="controls:DataGridCell">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                </Style>
+                            </controls:DataGridTemplateColumn.CellStyle>
+                            <controls:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="model:CategoryMetric">
+                                    <TextBlock
+                                        Padding="5"
+                                        Text="{x:Bind Description}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </DataTemplate>
+                            </controls:DataGridTemplateColumn.CellTemplate>
+                        </controls:DataGridTemplateColumn>
+
+                        <controls:DataGridTemplateColumn Header="Today" Tag="CategoryToday">
+                            <controls:DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="controls:DataGridCell">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                </Style>
+                            </controls:DataGridTemplateColumn.CellStyle>
+                            <controls:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="model:CategoryMetric">
+                                    <TextBlock
+                                        Padding="5"
+                                        Text="{x:Bind CategoryToday}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </DataTemplate>
+                            </controls:DataGridTemplateColumn.CellTemplate>
+                        </controls:DataGridTemplateColumn>
+
+                        <controls:DataGridTemplateColumn Header="Wtd" Tag="CategoryWtd">
+                            <controls:DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="controls:DataGridCell">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                </Style>
+                            </controls:DataGridTemplateColumn.CellStyle>
+                            <controls:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="model:CategoryMetric">
+                                    <TextBlock
+                                        Padding="5"
+                                        Text="{x:Bind CategoryWtd}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </DataTemplate>
+                            </controls:DataGridTemplateColumn.CellTemplate>
+                        </controls:DataGridTemplateColumn>
+
+                        <controls:DataGridTemplateColumn Header="Mtd" Tag="CategoryMtd">
+                            <controls:DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="controls:DataGridCell">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                </Style>
+                            </controls:DataGridTemplateColumn.CellStyle>
+                            <controls:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="model:CategoryMetric">
+                                    <TextBlock
+                                        Padding="5"
+                                        Text="{x:Bind CategoryMtd}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </DataTemplate>
+                            </controls:DataGridTemplateColumn.CellTemplate>
+                        </controls:DataGridTemplateColumn>
+
+                        <controls:DataGridTemplateColumn Header="Ytd" Tag="CategoryYtd">
+                            <controls:DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="controls:DataGridCell">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                </Style>
+                            </controls:DataGridTemplateColumn.CellStyle>
+                            <controls:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="model:CategoryMetric">
+                                    <TextBlock
+                                        Padding="5"
+                                        Text="{x:Bind CategoryYtd}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </DataTemplate>
+                            </controls:DataGridTemplateColumn.CellTemplate>
+                        </controls:DataGridTemplateColumn>
+
+                        <controls:DataGridTemplateColumn Header="Today" Tag="CallTimeToday">
+                            <controls:DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="controls:DataGridCell">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                </Style>
+                            </controls:DataGridTemplateColumn.CellStyle>
+                            <controls:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="model:CategoryMetric">
+                                    <TextBlock
+                                        Padding="5"
+                                        Text="{Binding CallTimeToday, Converter={StaticResource StringFormatSecondsConverter}, ConverterParameter='{}', Mode=OneWay}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </DataTemplate>
+                            </controls:DataGridTemplateColumn.CellTemplate>
+                        </controls:DataGridTemplateColumn>
+
+                        <controls:DataGridTemplateColumn Header="Wtd" Tag="CallTimeWtd">
+                            <controls:DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="controls:DataGridCell">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                </Style>
+                            </controls:DataGridTemplateColumn.CellStyle>
+                            <controls:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="model:CategoryMetric">
+                                    <TextBlock
+                                        Padding="5"
+                                        Text="{Binding CallTimeWtd, Converter={StaticResource StringFormatSecondsConverter}, ConverterParameter='{}', Mode=OneWay}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </DataTemplate>
+                            </controls:DataGridTemplateColumn.CellTemplate>
+                        </controls:DataGridTemplateColumn>
+
+                        <controls:DataGridTemplateColumn Header="Mtd" Tag="CallTimeMtd">
+                            <controls:DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="controls:DataGridCell">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                </Style>
+                            </controls:DataGridTemplateColumn.CellStyle>
+                            <controls:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="model:CategoryMetric">
+                                    <TextBlock
+                                        Padding="5"
+                                        Text="{Binding CallTimeMtd, Converter={StaticResource StringFormatSecondsConverter}, ConverterParameter='{}', Mode=OneWay}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </DataTemplate>
+                            </controls:DataGridTemplateColumn.CellTemplate>
+                        </controls:DataGridTemplateColumn>
+
+                        <controls:DataGridTemplateColumn Header="Ytd" Tag="CallTimeYtd">
+                            <controls:DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="controls:DataGridCell">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                </Style>
+                            </controls:DataGridTemplateColumn.CellStyle>
+                            <controls:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="model:CategoryMetric">
+                                    <TextBlock
+                                        Padding="5"
+                                        Text="{Binding CallTimeYtd, Converter={StaticResource StringFormatSecondsConverter}, ConverterParameter='{}', Mode=OneWay}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </DataTemplate>
+                            </controls:DataGridTemplateColumn.CellTemplate>
+                        </controls:DataGridTemplateColumn>
+
+
+                    </controls:DataGrid.Columns>
+                </controls:DataGrid>
+                <StackPanel
+                    Margin="15,5,0,0"
+                    Padding="2"
+                    HorizontalAlignment="Left"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                        FontSize="20"
+                        Text="&#xEA40;" />
+                    <TextBlock
+                        Margin="{StaticResource SmallLeftRightMargin}"
+                        HorizontalAlignment="Left"
+                        Text="Category frequency counts &amp; time spend with visitor" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Page>
